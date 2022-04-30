@@ -44,7 +44,7 @@ public class Database implements Serializable {
 	public String toString() {
 		StringBuffer str = new StringBuffer("The Exame: \n\n");
 		for (int i = 0; i < allQ.size(); i++) {
-			str.append(i+") "+ allQ.get(i) + "\n");
+			str.append((i+1)+") "+ allQ.get(i) + "\n");
 
 		}
 		return str.toString();

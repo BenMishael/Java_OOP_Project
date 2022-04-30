@@ -31,7 +31,7 @@ public class AmericanQuestion extends Question implements Serializable{
 
 	@Override
 	public String toString() {
-		StringBuffer str = new StringBuffer("Question " + questionID + ". " + question + ":\n");
+		StringBuffer str = new StringBuffer(super.getQuestion() +"\n");		//changed to super.getQuestion
 		for (int i = 0; i < ansList.getSize(); i++) {
 			str.append(" " + (i + 1) + ". " + ansList.get(i) + "\n");
 		}
