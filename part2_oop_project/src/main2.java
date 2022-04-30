@@ -13,7 +13,6 @@ import java.io.Serializable;
 public class main2 {
 
 	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
-		int num =4;
 		Scanner s = new Scanner(System.in);
 		int select = 0, americanORopen = 0, size = 0, trueORfalse, id = 0, answerId = 0, counter = 0, ansSize = 0;
 		boolean flag;
