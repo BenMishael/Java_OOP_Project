@@ -57,8 +57,7 @@ public class Question implements Comparable<Question>,Serializable {
 
 	@Override
 	public String toString() {
-		StringBuffer str = new StringBuffer(
-				"Question " + questionID + ". " + question + "\nAnswer: " + answer.toString() + "\n");
+		StringBuffer str = new StringBuffer(question + "\nAnswer: " + answer.toString() + "\n");
 		return str.toString();
 	}
 }
