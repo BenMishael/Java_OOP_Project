@@ -234,7 +234,7 @@ public class main2 {
 						flag = false;
 					}
 				}
-				Database exam = new Database();
+				Database exam = new Database("exam");
 				for (int i = 0; i < size; i++) {
 					flag = false;
 					while (!flag) {
@@ -306,6 +306,7 @@ public class main2 {
 					}
 				}
 				System.out.println(exam.toString());
+				fileMG.saveTest(exam);
 				break;
 			case 7:
 				flag = false;
@@ -315,12 +316,13 @@ public class main2 {
 						size = s.nextInt();
 						if (size < 1 || size > initExam.allQ.size())
 							throw new IntNotInRange("Please enter a number between 1 - " + initExam.allQ.size());
-						Database autoExam = new Database();
+						Database autoExam = new Database("exam");
 						for (int i = 0; i < size; i++) {
 							id = (int) (Math.random() * initExam.allQ.size());
 							autoExam.allQ.add(initExam.allQ.get(id));
 						}
 						System.out.println(autoExam.toString());
+						fileMG.saveTest(autoExam);
 						flag = true;
 					} catch (InputMismatchException | IntNotInRange e) {
 						s.nextLine();

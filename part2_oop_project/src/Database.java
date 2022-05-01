@@ -37,6 +37,8 @@ public class Database implements Serializable {
 	public String getName() {
 		return databaseName;
 	}
+	
+	
 
 	@Override
 	public boolean equals(Object other) {

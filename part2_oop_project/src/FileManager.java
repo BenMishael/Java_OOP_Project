@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.Serializable;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.time.LocalDate;
 
 public class FileManager implements Serializable{
 	
@@ -33,4 +35,14 @@ public class FileManager implements Serializable{
 		outFile.close();
 		return true;
 	}
+	
+	public boolean saveTest(Database test) throws FileNotFoundException, IOException {
+		LocalDate date = LocalDate.now();
+		PrintWriter pw = new PrintWriter(new File(test.getName()+"_"+date+".txt"));
+		pw.println(test);
+		pw.close();
+		return true;
+	}
+	
+	
 }
