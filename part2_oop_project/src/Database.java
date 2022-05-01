@@ -15,6 +15,12 @@ public class Database implements Serializable {
 	
 	public Database() {
 		allQ = new Vector<Question>();
+		this.databaseName= "N/A";
+	}
+	
+	public Database(String name) {
+		allQ = new Vector<Question>();
+		this.databaseName = name;
 	}
 
 	public void setAmericanAnswer(int id, int ansId, String ans, boolean TorF) {
@@ -26,6 +32,10 @@ public class Database implements Serializable {
 	public void deleteAmericanAns(int id, int ansId) {
 		AmericanQuestion q = (AmericanQuestion) allQ.get(id);
 		q.getAnsList().remove(ansId);
+	}
+	
+	public String getName() {
+		return databaseName;
 	}
 
 	@Override

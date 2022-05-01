@@ -13,20 +13,14 @@ import java.io.Serializable;
 public class main2 {
 
 	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
+		FileManager fileMG = new FileManager();
 		Scanner s = new Scanner(System.in);
 		int select = 0, americanORopen = 0, size = 0, trueORfalse, id = 0, answerId = 0, counter = 0, ansSize = 0;
 		boolean flag;
 		String question, answer;
-		File f = new File("initExam.dat");
-		Database initExam;
-		if(f.exists()) {
-			ObjectInputStream inFile = new ObjectInputStream (new FileInputStream("initExam.dat"));
-			initExam =(Database)inFile.readObject();
-		}
-		else {
-			initExam = new Database();
-		}
-
+		final String DB_NAME = "initExam";
+		Database initExam = fileMG.OpenDatabase(DB_NAME);
+		
 		while (select != 9) {
 			System.out.println("Hello..please select from the next options: " + "\n1.Show me all questions and answers."
 					+ "\n2.Add question and answer." + "\n3.Update an existing question."
@@ -341,9 +335,7 @@ public class main2 {
 				break;
 			case 9:
 				System.out.println("Good bay!");
-				ObjectOutputStream outFile = new ObjectOutputStream(new FileOutputStream("initExam.dat"));
-				outFile.writeObject(initExam);
-				outFile.close();
+				fileMG.UpdateDatabase(initExam);
 				break;
 			}
 		}
