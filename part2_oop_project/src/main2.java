@@ -20,6 +20,7 @@ public class main2 {
 		String question, answer;
 		final String DB_NAME = "initExam";
 		Database initExam = fileMG.OpenDatabase(DB_NAME);
+		int num =4;
 		
 		while (select != 9) {
 			System.out.println("Hello..please select from the next options: " + "\n1.Show me all questions and answers."
