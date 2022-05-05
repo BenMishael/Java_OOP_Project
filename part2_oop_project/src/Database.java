@@ -51,10 +51,19 @@ public class Database implements Serializable {
 		Database ex = (Database) other;
 		return ex.allQ == ex.allQ;
 	}
+	
+	public String toStringNoAns() {
+		StringBuffer str = new StringBuffer("The Exam: \n\n");
+		for (int i = 0; i < allQ.size(); i++) {
+			str.append((i+1)+") "+ allQ.get(i).toStringNoAns() + "\n");
+
+		}
+		return str.toString();
+	}
 
 	@Override
 	public String toString() {
-		StringBuffer str = new StringBuffer("The Exame: \n\n");
+		StringBuffer str = new StringBuffer("The Exam: \n\n");
 		for (int i = 0; i < allQ.size(); i++) {
 			str.append((i+1)+") "+ allQ.get(i) + "\n");
 

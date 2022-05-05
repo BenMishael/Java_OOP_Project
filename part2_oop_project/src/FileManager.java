@@ -37,9 +37,24 @@ public class FileManager implements Serializable{
 	}
 	
 	public boolean saveTest(Database test) throws FileNotFoundException, IOException {
+		saveTestSol(test);
+		saveTestNoSol(test);
+		return true;
+	}
+	
+	
+	public boolean saveTestSol(Database test) throws FileNotFoundException {
 		LocalDate date = LocalDate.now();
-		PrintWriter pw = new PrintWriter(new File(test.getName()+"_"+date+".txt"));
+		PrintWriter pw = new PrintWriter(new File("solution_"+date+".txt"));
 		pw.println(test);
+		pw.close();
+		return true;
+	}
+	
+	public boolean saveTestNoSol(Database test) throws FileNotFoundException {
+		LocalDate date = LocalDate.now();
+		PrintWriter pw = new PrintWriter(new File("exam_"+date+".txt"));
+		pw.println(test.toStringNoAns());
 		pw.close();
 		return true;
 	}

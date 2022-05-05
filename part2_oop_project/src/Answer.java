@@ -59,5 +59,10 @@ public class Answer implements Comparable<Answer>,Serializable{
 		StringBuffer str = new StringBuffer(answer +" - " + trueORfalse);
 		return str.toString();
 	}
+	
+	public String toStringNoAns() {
+		StringBuffer str = new StringBuffer(answer);
+		return str.toString();
+	}
 
 }

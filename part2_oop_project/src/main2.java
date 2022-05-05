@@ -26,7 +26,12 @@ public class main2 {
 					+ "\n2.Add question and answer." + "\n3.Update an existing question."
 					+ "\n4.Update an existing answer." + "\n5.Delete an existing answer." + "\n6.Create a manual exam."
 					+ "\n7.Create an automatic exam." + "\n8.Create an exam clone" + "\n9.Exit.");
-			select = s.nextInt();
+			try {
+				select = s.nextInt();
+			} catch (InputMismatchException e1) {
+				System.out.println("Wrong input only number please! \n");
+				s.nextLine();
+			}
 			switch (select) {
 			case 1:
 				System.out.println(initExam);
@@ -317,9 +322,13 @@ public class main2 {
 						if (size < 1 || size > initExam.allQ.size())
 							throw new IntNotInRange("Please enter a number between 1 - " + initExam.allQ.size());
 						Database autoExam = new Database("exam");
-						for (int i = 0; i < size; i++) {
+						int autoCount = 0;
+						while(autoCount != size) {
 							id = (int) (Math.random() * initExam.allQ.size());
-							autoExam.allQ.add(initExam.allQ.get(id));
+							if(!(autoExam.allQ.contains(initExam.allQ.get(id)))) {
+								autoExam.allQ.add(initExam.allQ.get(id));
+								autoCount++;
+							}
 						}
 						System.out.println(autoExam.toString());
 						fileMG.saveTest(autoExam);
