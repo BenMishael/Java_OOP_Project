@@ -10,10 +10,11 @@ import java.util.Scanner;
 import java.util.Vector;
 import java.io.Serializable;
 
-public class Program {
+public class Program implements Menuable{
 
 	public static void main(String[] args) {
 		FileManager fileMG = null;
+		Program prog = new Program();
 		try {
 			fileMG = new FileManager();
 		} catch (FileNotFoundException e) {
@@ -42,10 +43,7 @@ public class Program {
 		}
 
 		while (select != 9) {
-			System.out.println("Hello..please select from the next options: " + "\n1.Show me all questions and answers."
-					+ "\n2.Add question and answer." + "\n3.Update an existing question."
-					+ "\n4.Update an existing answer." + "\n5.Delete an existing answer." + "\n6.Create a manual exam."
-					+ "\n7.Create an automatic exam." + "\n8.Create an exam clone" + "\n9.Exit.");
+			prog.printMenu();
 			try {
 				select = s.nextInt();
 			} catch (InputMismatchException e1) {
@@ -54,78 +52,10 @@ public class Program {
 			}
 			switch (select) {
 			case 1:
-				System.out.println(initExam);
+				prog.printDatabase(initExam);
 				break;
 			case 2:
-				flag = false;
-				while (!flag) {
-					try {
-						s.nextLine();
-						System.out.println("Please enter the new question: ");
-						question = s.nextLine();
-						System.out.println("Please enter the type off the new question \n 1 - open\n 2 - American: ");
-						americanORopen = s.nextInt();
-						flag = true;
-						if (americanORopen == 1) {
-							s.nextLine();
-							System.out.println("Please enter the answer: ");
-							answer = s.nextLine();
-							Question newQuestion = new Question(question, answer);
-							if (initExam.allQ.add(newQuestion)) {
-								System.out.println("**\nThe new question:\n" + newQuestion + "\n**");
-							} else
-								System.out.println("**************\nQuestion already exist!\n**************");
-						} else if (americanORopen == 2) {
-							flag = false;
-							while (!flag) {
-								try {
-									System.out.println("How many answers would you like this question to contain: ");
-									size = s.nextInt();
-									if (size < 0)
-										throw new IntNotInRange("Please enter a positive number");
-									flag = true;
-								} catch (InputMismatchException | IntNotInRange e) {
-									s.nextLine();
-									System.out.println(e.getMessage());
-									flag = false;
-								}
-								MySet<Answer> ansArr = new MySet<Answer>();
-								for (int i = 0; i < size; i++) {
-									s.nextLine();
-									System.out.println("Please enter answer number " + (i + 1));
-									answer = s.nextLine();
-									flag = false;
-									while (!flag) {
-										try {
-											System.out.println("Please enter:\n 1 - true \n 2 - false");
-											trueORfalse = s.nextInt();
-											if (trueORfalse > 2 || trueORfalse < 1)
-												throw new IntNotInRange("Please enter 1 OR 2");
-											flag = true;
-											Answer ansTemp = new Answer(answer, (trueORfalse == 1 ? true : false));
-											ansArr.add(ansTemp);
-										} catch (InputMismatchException | IntNotInRange e) {
-											s.nextLine();
-											System.out.println(e.getMessage());
-											flag = false;
-										}
-									}
-								}
-								AmericanQuestion newAmericanQuestion = new AmericanQuestion(question, ansArr);
-								if (initExam.allQ.add(newAmericanQuestion)) {
-									System.out.println("**\nThe new question:\n" + newAmericanQuestion + "\n**");
-								} else
-									System.out.println("**************\nQuestion already exist!\n**************");
-							}
-						} else
-							throw new IntNotInRange("Please enter 1 OR 2");
-					} catch (InputMismatchException | IntNotInRange e) {
-						s.nextLine();
-						System.out.println(e.getMessage());
-						flag = false;
-					}
-
-				}
+				prog.addNewQuest(initExam, s);
 				break;
 			case 3:
 				flag = false;
@@ -397,5 +327,132 @@ public class Program {
 			}
 		}
 		s.close();
+	}
+	
+	@Override
+	public void printMenu() {
+		System.out.println("Hello..please select from the next options: " + "\n1.Show me all questions and answers."
+				+ "\n2.Add question and answer." + "\n3.Update an existing question."
+				+ "\n4.Update an existing answer." + "\n5.Delete an existing answer." + "\n6.Create a manual exam."
+				+ "\n7.Create an automatic exam." + "\n8.Create an exam clone" + "\n9.Exit.");
+	}
+
+	@Override
+	public void printDatabase(Database db) {
+		System.out.println(db);
+	}
+
+	@Override
+	public void addNewQuest(Database initExam, Scanner s) {
+		boolean flag = false;
+		String question,answer;
+		int americanORopen = 0;
+		int size = 0;
+		int trueORfalse = 0;
+		while (!flag) {
+			try {
+				s.nextLine();
+				System.out.println("Please enter the new question: ");
+				question = s.nextLine();
+				System.out.println("Please enter the type off the new question \n 1 - open\n 2 - American: ");
+				americanORopen = s.nextInt();
+				flag = true;
+				if (americanORopen == 1) {
+					s.nextLine();
+					System.out.println("Please enter the answer: ");
+					answer = s.nextLine();
+					Question newQuestion = new Question(question, answer);
+					if (initExam.allQ.add(newQuestion)) {
+						System.out.println("**\nThe new question:\n" + newQuestion + "\n**");
+					} else
+						System.out.println("**************\nQuestion already exist!\n**************");
+				} else if (americanORopen == 2) {
+					flag = false;
+					while (!flag) {
+						try {
+							System.out.println("How many answers would you like this question to contain: ");
+							size = s.nextInt();
+							if (size < 0)
+								throw new IntNotInRange("Please enter a positive number");
+							flag = true;
+						} catch (InputMismatchException | IntNotInRange e) {
+							s.nextLine();
+							System.out.println(e.getMessage());
+							flag = false;
+						}
+						MySet<Answer> ansArr = new MySet<Answer>();
+						for (int i = 0; i < size; i++) {
+							s.nextLine();
+							System.out.println("Please enter answer number " + (i + 1));
+							answer = s.nextLine();
+							flag = false;
+							while (!flag) {
+								try {
+									System.out.println("Please enter:\n 1 - true \n 2 - false");
+									trueORfalse = s.nextInt();
+									if (trueORfalse > 2 || trueORfalse < 1)
+										throw new IntNotInRange("Please enter 1 OR 2");
+									flag = true;
+									Answer ansTemp = new Answer(answer, (trueORfalse == 1 ? true : false));
+									ansArr.add(ansTemp);
+								} catch (InputMismatchException | IntNotInRange e) {
+									s.nextLine();
+									System.out.println(e.getMessage());
+									flag = false;
+								}
+							}
+						}
+						AmericanQuestion newAmericanQuestion = new AmericanQuestion(question, ansArr);
+						if (initExam.allQ.add(newAmericanQuestion)) {
+							System.out.println("**\nThe new question:\n" + newAmericanQuestion + "\n**");
+						} else
+							System.out.println("**************\nQuestion already exist!\n**************");
+					}
+				} else
+					throw new IntNotInRange("Please enter 1 OR 2");
+			} catch (InputMismatchException | IntNotInRange e) {
+				s.nextLine();
+				System.out.println(e.getMessage());
+				flag = false;
+			}
+
+		}
+		
+	}
+
+	@Override
+	public void editQuest(Database db, Scanner s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void editAnswer(Database db, Scanner s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createManualExam(Database db, Scanner s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createAutoExam(Database db, Scanner s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createExamClone(Database db, Scanner s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void exitAndSave(Database db) {
+		// TODO Auto-generated method stub
+		
 	}
 }
