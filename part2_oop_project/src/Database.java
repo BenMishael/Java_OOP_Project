@@ -53,7 +53,7 @@ public class Database implements Serializable {
 	}
 	
 	public String toStringNoAns() {
-		StringBuffer str = new StringBuffer("The Exam: \n\n");
+		StringBuffer str = new StringBuffer("The Database: \n\n");
 		for (int i = 0; i < allQ.size(); i++) {
 			str.append((i+1)+") "+ allQ.get(i).toStringNoAns() + "\n");
 

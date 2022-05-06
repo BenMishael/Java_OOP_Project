@@ -10,17 +10,37 @@ import java.util.Scanner;
 import java.util.Vector;
 import java.io.Serializable;
 
-public class main2 {
+public class Program {
 
-	public static void main(String[] args) throws FileNotFoundException, ClassNotFoundException, IOException {
-		FileManager fileMG = new FileManager();
+	public static void main(String[] args) {
+		FileManager fileMG = null;
+		try {
+			fileMG = new FileManager();
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found error");
+		} catch (IOException e) {
+			System.out.println("IOException File not found");
+		} catch (Exception e) {
+			System.out.println("General Error");
+		}
 		Scanner s = new Scanner(System.in);
-		int select = 0, americanORopen = 0, size = 0, trueORfalse, id = 0, answerId = 0, counter = 0, ansSize = 0;
+		int select = 0, americanORopen = 0, size = 0, trueORfalse, id = 0, answerId = 0, ansSize = 0;
 		boolean flag;
 		String question, answer;
 		final String DB_NAME = "initExam";
-		Database initExam = fileMG.OpenDatabase(DB_NAME);
-		
+		Database initExam = null;
+		try {
+			initExam = fileMG.OpenDatabase(DB_NAME);
+		} catch (ClassNotFoundException e) {
+			System.out.println("Class not found Error");
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found error");
+		} catch (IOException e) {
+			System.out.println("IOException File not found");
+		} catch (Exception e) {
+			System.out.println("General Error");
+		}
+
 		while (select != 9) {
 			System.out.println("Hello..please select from the next options: " + "\n1.Show me all questions and answers."
 					+ "\n2.Add question and answer." + "\n3.Update an existing question."
@@ -104,6 +124,7 @@ public class main2 {
 						System.out.println(e.getMessage());
 						flag = false;
 					}
+
 				}
 				break;
 			case 3:
@@ -311,7 +332,15 @@ public class main2 {
 					}
 				}
 				System.out.println(exam.toString());
-				fileMG.saveTest(exam);
+				try {
+					fileMG.saveTest(exam);
+				} catch (FileNotFoundException e) {
+					System.out.println("FileNotFoundException File not found");
+				} catch (IOException e) {
+					System.out.println("IOException File not found");
+				} catch (Exception e) {
+					System.out.println("General Error");
+				}
 				break;
 			case 7:
 				flag = false;
@@ -323,15 +352,23 @@ public class main2 {
 							throw new IntNotInRange("Please enter a number between 1 - " + initExam.allQ.size());
 						Database autoExam = new Database("exam");
 						int autoCount = 0;
-						while(autoCount != size) {
+						while (autoCount != size) {
 							id = (int) (Math.random() * initExam.allQ.size());
-							if(!(autoExam.allQ.contains(initExam.allQ.get(id)))) {
+							if (!(autoExam.allQ.contains(initExam.allQ.get(id)))) {
 								autoExam.allQ.add(initExam.allQ.get(id));
 								autoCount++;
 							}
 						}
 						System.out.println(autoExam.toString());
-						fileMG.saveTest(autoExam);
+						try {
+							fileMG.saveTest(autoExam);
+						} catch (FileNotFoundException e) {
+							System.out.println("FileNotFoundException File not found");
+						} catch (IOException e) {
+							System.out.println("IOException File not found");
+						} catch (Exception e) {
+							System.out.println("General Error");
+						}
 						flag = true;
 					} catch (InputMismatchException | IntNotInRange e) {
 						s.nextLine();
@@ -341,12 +378,21 @@ public class main2 {
 				}
 				break;
 			case 8:
-//				System.out.println("Please chose the exam id you wish to clone:\n" + exam.toString());
-//				id = s.nextInt();
+				// System.out.println("Please chose the exam id you wish to clone:\n" +
+				// exam.toString());
+				// id = s.nextInt();
 				break;
 			case 9:
 				System.out.println("Good bay!");
-				fileMG.UpdateDatabase(initExam);
+				try {
+					fileMG.UpdateDatabase(initExam);
+				} catch (FileNotFoundException e1) {
+					System.out.println("FileNotFoundException File not found");
+				} catch (IOException e1) {
+					System.out.println("IOException File not found");
+				} catch (Exception e) {
+					System.out.println("General Error");
+				}
 				break;
 			}
 		}
