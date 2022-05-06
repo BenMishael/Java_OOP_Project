@@ -5,8 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 
 
 public class Database implements Serializable {
@@ -18,9 +20,19 @@ public class Database implements Serializable {
 		this.databaseName= "N/A";
 	}
 	
-	public Database(String name) {
-		allQ = new Vector<Question>();
-		this.databaseName = name;
+	public Database(String name) throws IOException, ClassNotFoundException {
+		File chosenFile = new File(name+".dat");
+		if(chosenFile.exists()) {
+			ObjectInputStream inFile = new ObjectInputStream (new FileInputStream(name+".dat"));
+			Database tempDB = (Database)inFile.readObject();
+			this.allQ = tempDB.allQ;
+			this.databaseName = tempDB.getName();
+			inFile.close();
+		}
+		else {
+			allQ = new Vector<Question>();
+			this.databaseName = name;
+		}
 	}
 
 	public void setAmericanAnswer(int id, int ansId, String ans, boolean TorF) {
@@ -38,7 +50,34 @@ public class Database implements Serializable {
 		return databaseName;
 	}
 	
+	public boolean saveTestSol(Database test) throws FileNotFoundException {
+		LocalDate date = LocalDate.now();
+		PrintWriter pw = new PrintWriter(new File("solution_"+date+".txt"));
+		pw.println(test);
+		pw.close();
+		return true;
+	}
 	
+	public boolean saveTestNoSol(Database test) throws FileNotFoundException {
+		LocalDate date = LocalDate.now();
+		PrintWriter pw = new PrintWriter(new File("exam_"+date+".txt"));
+		pw.println(test.toStringNoAns());
+		pw.close();
+		return true;
+	}
+	
+	public boolean saveTest(Database test) throws FileNotFoundException, IOException {
+		saveTestSol(test);
+		saveTestNoSol(test);
+		return true;
+	}
+	
+	public boolean UpdateDatabase() throws FileNotFoundException, IOException {
+		ObjectOutputStream outFile = new ObjectOutputStream(new FileOutputStream(this.getName()+".dat"));
+		outFile.writeObject(this);
+		outFile.close();
+		return true;
+	}
 
 	@Override
 	public boolean equals(Object other) {

@@ -3,12 +3,13 @@ import java.util.Scanner;
 public interface Menuable {
 	
 	void printMenu();
-	void printDatabase(Database db);
-	void addNewQuest(Database db,Scanner s);
-	void editQuest(Database db,Scanner s);
-	void editAnswer(Database db,Scanner s);
-	void createManualExam(Database db,Scanner s);
-	void createAutoExam(Database db,Scanner s);
-	void createExamClone(Database db,Scanner s);
-	void exitAndSave(Database db);
+	void printDatabase(Database initExam);
+	void addNewQuest(Database initExam,Scanner s);
+	void editQuest(Database initExam,Scanner s);
+	void editAnswer(Database initExam,Scanner s);
+	void deleteAnswer(Database initExam,Scanner s);
+	void createManualExam(Database initExam,Scanner s);
+	void createAutoExam(Database initExam,Scanner s);
+	void createExamClone(Database initExam,Scanner s);
+	void exitAndSave(Database initExam);
 }
