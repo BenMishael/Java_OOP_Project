@@ -12,11 +12,13 @@ import java.io.PrintWriter;
 
 
 public class Database implements Serializable {
-	public Vector<Question> allQ;
+	public Vector <Question> allQ;
+	public Vector <Test> allTests;
 	private String databaseName;
 	
 	public Database() {
-		allQ = new Vector<Question>();
+		allQ = new Vector <Question>();
+		allTests = new  Vector <Test>();
 		this.databaseName= "N/A";
 	}
 	
@@ -27,10 +29,12 @@ public class Database implements Serializable {
 			Database tempDB = (Database)inFile.readObject();
 			this.allQ = tempDB.allQ;
 			this.databaseName = tempDB.getName();
+			this.allTests = new  Vector <Test>();
 			inFile.close();
 		}
 		else {
-			allQ = new Vector<Question>();
+			this.allQ = new Vector<Question>();
+			this.allTests = new  Vector <Test>();
 			this.databaseName = name;
 		}
 	}
@@ -50,7 +54,7 @@ public class Database implements Serializable {
 		return databaseName;
 	}
 	
-	public boolean saveTestSol(Database test) throws FileNotFoundException {
+	public boolean saveTestSol(Test test) throws FileNotFoundException {
 		LocalDate date = LocalDate.now();
 		PrintWriter pw = new PrintWriter(new File("solution_"+date+".txt"));
 		pw.println(test);
@@ -58,7 +62,7 @@ public class Database implements Serializable {
 		return true;
 	}
 	
-	public boolean saveTestNoSol(Database test) throws FileNotFoundException {
+	public boolean saveTestNoSol(Test test) throws FileNotFoundException {
 		LocalDate date = LocalDate.now();
 		PrintWriter pw = new PrintWriter(new File("exam_"+date+".txt"));
 		pw.println(test.toStringNoAns());
@@ -66,7 +70,8 @@ public class Database implements Serializable {
 		return true;
 	}
 	
-	public boolean saveTest(Database test) throws FileNotFoundException, IOException {
+	public boolean saveTest(Test test) throws FileNotFoundException, IOException {
+		this.allTests.add(test);
 		saveTestSol(test);
 		saveTestNoSol(test);
 		return true;
@@ -113,10 +118,20 @@ public class Database implements Serializable {
 		}
 		return str.toString();
 	}
+	
+	public String showTests() {
+		StringBuffer str = new StringBuffer("All the Tests: \n\n");
+		for (int i = 0; i < allTests.size(); i++) {
+			str.append((i+1)+") "+ allTests.get(i) + "\n");
+
+		}
+		return str.toString();
+
+	}
 
 	@Override
 	public String toString() {
-		StringBuffer str = new StringBuffer("The Exam: \n\n");
+		StringBuffer str = new StringBuffer("The Database: \n\n");
 		for (int i = 0; i < allQ.size(); i++) {
 			str.append((i+1)+") "+ allQ.get(i) + "\n");
 

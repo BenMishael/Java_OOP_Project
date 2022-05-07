@@ -319,18 +319,7 @@ public class Program implements Menuable{
 				flag = false;
 			}
 		}
-		Database exam = null;
-		try {
-			exam = new Database("exam");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Class not found Error");
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found error");
-		} catch (IOException e) {
-			System.out.println("IOException File not found");
-		} catch (Exception e) {
-			System.out.println("General Error");
-		}
+		Test exam = new Test("exam");
 		for (int i = 0; i < size; i++) {
 			flag = false;
 			while (!flag) {
@@ -426,18 +415,7 @@ public class Program implements Menuable{
 				size = s.nextInt();
 				if (size < 1 || size > initExam.allQ.size())
 					throw new IntNotInRange("Please enter a number between 1 - " + initExam.allQ.size());
-				Database autoExam = null;
-				try {
-					autoExam = new Database("exam");
-				} catch (ClassNotFoundException e) {
-					System.out.println("Class not found Error");
-				} catch (FileNotFoundException e) {
-					System.out.println("File not found error");
-				} catch (IOException e) {
-					System.out.println("IOException File not found");
-				} catch (Exception e) {
-					System.out.println("General Error");
-				}
+				Test autoExam = new Test("exam");
 				int autoCount = 0;
 				while (autoCount != size) {
 					id = (int) (Math.random() * initExam.allQ.size());
