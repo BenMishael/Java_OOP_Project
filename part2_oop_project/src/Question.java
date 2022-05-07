@@ -24,6 +24,10 @@ public class Question implements Comparable<Question>,Serializable {
 	public final int getQuestionID() {
 		return questionID;
 	}
+	
+	public int answerLength() {
+		return this.answer.answer.length();
+	}
 
 	public final void setQuestionID(int questionID) {
 		this.questionID = questionID;

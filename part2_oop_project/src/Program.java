@@ -401,6 +401,7 @@ public class Program implements Menuable{
 				break;
 			}
 		}
+		exam.sortByAnsLength();
 		System.out.println(exam.toString());
 		try {
 			initExam.saveTest(exam);
@@ -445,6 +446,8 @@ public class Program implements Menuable{
 						autoCount++;
 					}
 				}
+				
+				autoExam.sortByAnsLength();
 				System.out.println(autoExam.toString());
 				try {
 					initExam.saveTest(autoExam);

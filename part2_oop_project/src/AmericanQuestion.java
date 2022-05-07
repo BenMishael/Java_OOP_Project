@@ -29,6 +29,15 @@ public class AmericanQuestion extends Question implements Serializable{
 		return (getQuestion().equals(AQ.getQuestion()));
 	}
 	
+	@Override
+	public int answerLength() {
+		int counter = 0;
+		for (int i = 0; i < ansList.getSize(); i++) {
+			counter += ansList.get(i).answer.length();
+		}
+		return counter;
+	}
+	
 	
 	public String toStringNoAns() {
 		StringBuffer str = new StringBuffer(super.getQuestion() +"\n");		//changed to super.getQuestion

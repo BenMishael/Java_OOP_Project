@@ -78,6 +78,20 @@ public class Database implements Serializable {
 		outFile.close();
 		return true;
 	}
+	
+	public void sortByAnsLength() {
+		Question temp;
+		for (int i = this.allQ.size(); i > 0; i--) {
+			for (int j = 0; j < i - 1; j++) {
+				if (this.allQ.get(j).answerLength() > this.allQ.get(j + 1).answerLength()) {
+					temp = this.allQ.get(j);
+					this.allQ.set(j, this.allQ.get(j + 1));
+					this.allQ.set(j + 1, temp);
+				}
+			}
+
+		}
+	}
 
 	@Override
 	public boolean equals(Object other) {
