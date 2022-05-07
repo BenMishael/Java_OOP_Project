@@ -279,11 +279,12 @@ public class Program implements Menuable{
 					System.out.println("Please enter the answer id you would like to delete");
 					answerId = s.nextInt() - 1;
 					if (answerId < 0 || answerId > 3)
-						throw new IntNotInRange("Please enter a number between 1 - 4");
+						throw new IntNotInRange("Please enter a number between 1 - "
+								+ ((AmericanQuestion) initExam.allQ.get(id)).getAnsList().getSize());
 					s.nextLine();
 					initExam.deleteAmericanAns(id, answerId);
-					System.out.println(
-							"***************\nThe question:\n" + initExam.allQ.get(id) + "\n***************");
+					System.out
+							.println("*****\nThe question:\n" + initExam.allQ.get(id) + "\n*******");
 					flag = true;
 				} catch (InputMismatchException | IntNotInRange e) {
 					s.nextLine();
@@ -295,9 +296,8 @@ public class Program implements Menuable{
 			initExam.allQ.get(id).setAnswer(null);
 		}
 
-		
 	}
-
+	
 	@Override
 	public void createManualExam(Database initExam, Scanner s) {
 		int size = 0;
