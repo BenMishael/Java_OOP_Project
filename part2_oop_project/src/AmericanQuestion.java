@@ -38,7 +38,6 @@ public class AmericanQuestion extends Question implements Serializable{
 		return counter;
 	}
 	
-	
 	public String toStringNoAns() {
 		StringBuffer str = new StringBuffer(super.getQuestion() +"\n");		//changed to super.getQuestion
 		for (int i = 0; i < ansList.getSize(); i++) {

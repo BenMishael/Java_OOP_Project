@@ -15,7 +15,7 @@ public class Program implements Menuable{
 	public static void main(String[] args) {
 		Program prog = new Program();
 		Scanner s = new Scanner(System.in);
-		int select = 0;
+		int select = 10;
 		final String DB_NAME = "initExam";
 		Database initExam = null;
 		try {
@@ -30,7 +30,7 @@ public class Program implements Menuable{
 			System.out.println("General Error");
 		}
 
-		while (select != 9) {
+		while (select != 0) {
 			prog.printMenu();
 			try {
 				select = s.nextInt();
@@ -64,6 +64,9 @@ public class Program implements Menuable{
 				prog.createExamClone(initExam, s);
 				break;
 			case 9:
+				prog.printTestsInMem(initExam);
+				break;
+			case 0:
 				prog.exitAndSave(initExam);
 				break;
 			}
@@ -73,10 +76,20 @@ public class Program implements Menuable{
 	
 	@Override
 	public void printMenu() {
-		System.out.println("Hello..please select from the next options: " + "\n1.Show me all questions and answers."
-				+ "\n2.Add question and answer." + "\n3.Update an existing question."
-				+ "\n4.Update an existing answer." + "\n5.Delete an existing answer." + "\n6.Create a manual exam."
-				+ "\n7.Create an automatic exam." + "\n8.Create an exam clone" + "\n9.Exit.");
+		System.out.println("#########################################");
+		System.out.println("### Welcome To Our Questions Database ###");
+		System.out.println("######################################### \n");
+		System.out.println("Please Enter Your Choice: \n");
+		System.out.println("<1> Show All Questions In Database");
+		System.out.println("<2> Add New Question To Database");
+		System.out.println("<3> Edit Exist Question from Database");
+		System.out.println("<4> Edit Exist Answer from Database");
+		System.out.println("<5> Delete Exist Answer from Database");
+		System.out.println("<6> Create New Exam Manually");
+		System.out.println("<7> Create New Exam Automatically");
+		System.out.println("<8> Create Clone From Existing Test");
+		System.out.println("<9> Show All Test In Memory");
+		System.out.println("<0> Exit And Save");
 	}
 
 	@Override
@@ -447,10 +460,19 @@ public class Program implements Menuable{
 
 	@Override
 	public void createExamClone(Database initExam, Scanner s) {
-		// // System.out.println("Please chose the exam id you wish to clone:\n" +
-		// exam.toString());
-		// id = s.nextInt();
-		
+		System.out.println(initExam.showTests());
+		System.out.println("Please enter the ID of the test you want to clone");
+		int inx = s.nextInt();
+		inx--;
+		try {
+			initExam.allTests.add(initExam.getTestByID(inx).clone());
+		} catch (CloneNotSupportedException e) {
+			System.out.println("Clone not support Exception");
+		} catch (Exception e) {
+			System.out.println("General Error");
+		}
+		System.out.println("The Clone Exam was Created:");
+		System.out.println(initExam.allTests.get(initExam.allTests.size()-1));
 	}
 
 	@Override
@@ -465,6 +487,11 @@ public class Program implements Menuable{
 		} catch (Exception e) {
 			System.out.println("General Error");
 		}
+	}
+
+	@Override
+	public void printTestsInMem(Database initExam) {
+		System.out.println(initExam.showTests());
 	}
 
 }

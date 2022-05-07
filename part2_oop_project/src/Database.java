@@ -54,6 +54,10 @@ public class Database implements Serializable {
 		return databaseName;
 	}
 	
+	public Test getTestByID(int id) {
+		return allTests.get(id);
+	}
+	
 	public boolean saveTestSol(Test test) throws FileNotFoundException {
 		LocalDate date = LocalDate.now();
 		PrintWriter pw = new PrintWriter(new File("solution_"+date+".txt"));
@@ -122,7 +126,7 @@ public class Database implements Serializable {
 	public String showTests() {
 		StringBuffer str = new StringBuffer("All the Tests: \n\n");
 		for (int i = 0; i < allTests.size(); i++) {
-			str.append((i+1)+") "+ allTests.get(i) + "\n");
+			str.append("Test Number : "+(i+1) +" ---- Name : "+ allTests.get(i) + " \n");
 
 		}
 		return str.toString();

@@ -65,7 +65,6 @@ public class Question implements Comparable<Question>,Serializable {
 		return str.toString();
 	}
 	
-
 	public String toStringNoAns() {
 		StringBuffer str = new StringBuffer(this.getQuestion() + "\n");
 		return str.toString();

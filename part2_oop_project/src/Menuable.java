@@ -11,5 +11,6 @@ public interface Menuable {
 	void createManualExam(Database initExam,Scanner s);
 	void createAutoExam(Database initExam,Scanner s);
 	void createExamClone(Database initExam,Scanner s);
+	void printTestsInMem(Database initExam);
 	void exitAndSave(Database initExam);
 }

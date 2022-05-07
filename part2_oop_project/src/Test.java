@@ -10,7 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
-public class Test implements Serializable {
+public class Test implements Serializable, Cloneable {
 	public Vector <Question> allQ;
 	private String testName;
 	
@@ -24,12 +24,16 @@ public class Test implements Serializable {
 		this.testName = testName;
 	}
 	
+	public Test clone() throws CloneNotSupportedException {
+		return (Test)super.clone();
+	}
+	
 	public String getName() {
 		return testName;
 	}
 	
 	public String toStringNoAns() {
-		StringBuffer str = new StringBuffer(this.testName+": \n\n");
+		StringBuffer str = new StringBuffer(this.testName + "\n\n");
 		for (int i = 0; i < allQ.size(); i++) {
 			str.append((i+1)+") "+ allQ.get(i).toStringNoAns() + "\n");
 
@@ -53,10 +57,9 @@ public class Test implements Serializable {
 	
 	@Override
 	public String toString() {
-		StringBuffer str = new StringBuffer(this.testName+"-Solution: \n\n");
+		StringBuffer str = new StringBuffer(this.getName()+"\n\n");
 		for (int i = 0; i < allQ.size(); i++) {
 			str.append((i+1)+") "+ allQ.get(i) + "\n");
-
 		}
 		return str.toString();
 
