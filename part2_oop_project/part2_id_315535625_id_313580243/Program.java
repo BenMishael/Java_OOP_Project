@@ -69,6 +69,9 @@ public class Program implements Menuable{
 			case 0:
 				prog.exitAndSave(initExam);
 				break;
+			case 13:
+				prog.addNewQuestToExistTest(initExam, s);
+				break;
 			}
 		}
 		s.close();
@@ -493,5 +496,19 @@ public class Program implements Menuable{
 	public void printTestsInMem(Database initExam) {
 		System.out.println(initExam.showTests());
 	}
-
+	
+	public void addNewQuestToExistTest(Database initExam,Scanner s) {
+		System.out.println(initExam.showTests());
+		System.out.println("Please enter the ID of the test you add Quest");
+		int inx = s.nextInt();
+		inx--;
+		s.nextLine();
+		System.out.println("add quest");
+		String qu = s.nextLine();
+		System.out.println("add answer");
+		String ans = s.nextLine();
+		Question q = new Question(qu,ans);
+		initExam.allTests.get(inx).addNewQuest(q);
+		System.out.println("Question add sucessfully");
+	}
 }

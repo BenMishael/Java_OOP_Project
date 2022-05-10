@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Question implements Comparable<Question>,Serializable {
+public class Question implements Comparable<Question>,Serializable,Cloneable {
 	protected int questionID;
 	protected static int id = 1;
 	protected String question;

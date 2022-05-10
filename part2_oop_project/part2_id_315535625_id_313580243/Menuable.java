@@ -13,4 +13,5 @@ public interface Menuable {
 	void createExamClone(Database initExam,Scanner s);
 	void printTestsInMem(Database initExam);
 	void exitAndSave(Database initExam);
+	public void addNewQuestToExistTest(Database initExam,Scanner s);
 }

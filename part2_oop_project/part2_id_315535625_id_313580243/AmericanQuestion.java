@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.Vector;
 import java.io.Serializable;
 
-public class AmericanQuestion extends Question implements Serializable{
+public class AmericanQuestion extends Question implements Serializable,Cloneable{
 	MySet<Answer> ansList = new MySet<Answer>();
 
 	public AmericanQuestion(String question, MySet<Answer> ansList) {

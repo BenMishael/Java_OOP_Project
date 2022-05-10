@@ -24,12 +24,26 @@ public class Test implements Serializable, Cloneable {
 		this.testName = testName;
 	}
 	
+
+	@SuppressWarnings("unchecked")
+	@Override
 	public Test clone() throws CloneNotSupportedException {
-		return (Test)super.clone();
+		Test temp = (Test)super.clone();
+		temp.allQ = (Vector<Question>) this.getAllQst().clone();
+		temp.testName = this.getName() + "_clone";
+		return temp;
+	}
+	
+	public void addNewQuest(Question q) {
+		allQ.add(q);
 	}
 	
 	public String getName() {
 		return testName;
+	}
+	
+	public Vector <Question> getAllQst(){
+		return this.allQ;
 	}
 	
 	public String toStringNoAns() {
